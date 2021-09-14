@@ -4,7 +4,8 @@
 
 <br/><br/><br/>
 
-# Módulo 6: Strings, iteradores, bucles y Regexp - Entrega P2P: Contar palabras
+# Módulo 6: Strings, iteradores, bucles y Regexp - Entrega: Contar palabras
+Versión: 14 de septiembre de 2021
 
 ## Objetivos
  * Practicar con Strings, arrays e iteradores
@@ -39,24 +40,24 @@ El código de la aplicación web, disponible en el fichero `index.html`, es el s
 
   const getIO = () => ({ text: getAll("#text")[0]
                                   .value
-                                  .normalize(), 
+                                  .normalize(),
                           search: getAll("#search")[0]
                                   .value
                                   .normalize(),
                           view: getAll("#view")[0]
   });
 
-  const clean_string = (text) => 
+  const clean_string = (text) =>
     text
-      .replace(/[\n\r\t]+/igm, " ") 
-      .replace(/[^a-zñáéíóú0-9 \.,;:()¿?¡!“”❝❞«»❛❜'‘’\-_]+/igm, "") 
-      .replace(/[ ]+/gm, " ") 
+      .replace(/[\n\r\t]+/igm, " ")
+      .replace(/[^a-zñáéíóú0-9 \.,;:()¿?¡!“”❝❞«»❛❜'‘’\-_]+/igm, "")
+      .replace(/[ ]+/gm, " ")
 
-  const char_array = (text) => 
+  const char_array = (text) =>
     clean_string(text)
       .replace(/[^a-zñáéíóú]+/igm, "")  
-      .split("") 
-      .filter((w) => (w!=="")) 
+      .split("")
+      .filter((w) => (w!==""))
 
   // TODO
   const word_array = (text) => []
@@ -65,10 +66,10 @@ El código de la aplicación web, disponible en el fichero `index.html`, es el s
       clean_string(text)     
       .replace(/([\.:;?!\n]+)/gm, "$1+")
       .split("+")
-      .filter((w) => (w!=="")) 
-      .map((s) => (s.replace(/^[ 0-9]+(.*$)/, "$1"))) 
+      .filter((w) => (w!==""))
+      .map((s) => (s.replace(/^[ 0-9]+(.*$)/, "$1")))
 
-  const repetitions = (ordered_array) => 
+  const repetitions = (ordered_array) =>
     ordered_array
       .reduce(
         (acc, el, i, a) => {
@@ -76,30 +77,30 @@ El código de la aplicación web, disponible en el fichero `index.html`, es el s
           else if (el===a[i-1]) acc[acc.length-1].n++;
           else                  acc.push({s: el, n: 1});
           return acc;
-        }, 
+        },
       []
     );
 
   const count = () => {
     let {text, view} = getIO();
 
-    let result =  `Caracteres: ${char_array(text).length}\n`; 
+    let result =  `Caracteres: ${char_array(text).length}\n`;
         result += `Palabras: ${"No implementado"/*TO DO*/}\n`;
         result += `Frases: ${sentence_array(text).length}\n`;
         result += `Lineas: ${text.split("\n").length}\n`;
-    
+
     view.innerHTML = result;
   };
 
   const letter_index = () => {
     let {text, view} = getIO();
 
-    let ordered_letters = 
+    let ordered_letters =
       char_array(text)
         .map(el => el.toLowerCase())
         .sort();
 
-    let result = 
+    let result =
       repetitions(ordered_letters)
       .map(el => `${el.s}: ${el.n}`)
       .join("\n");
@@ -114,22 +115,22 @@ El código de la aplicación web, disponible en el fichero `index.html`, es el s
   const sentence_index = () => {
     let {text, view} = getIO();
 
-    let ordered_sentences = 
+    let ordered_sentences =
       sentence_array(text)
       .map(el => el.toLowerCase())
       .sort();
-    let result = 
+    let result =
       repetitions(ordered_sentences)
       .map(el => `${el.s}: ${el.n}`)
       .join("\n");                  
 
     view.innerHTML = result;
   };
-   
+
   const search_letters = () => {
     let {text, view, search} = getIO();
 
-    let ordered_letters = 
+    let ordered_letters =
       char_array(text)
         .map(el => el.toLowerCase())
         .filter(el => el.includes(search.toLowerCase()))
@@ -152,7 +153,7 @@ El código de la aplicación web, disponible en el fichero `index.html`, es el s
   const search_sentences = () => {
     let {text, view, search} = getIO();
 
-    let searched_sentences = 
+    let searched_sentences =
       sentence_array(text)
         .filter(el => el.includes(search))
         .sort()
@@ -171,7 +172,7 @@ El código de la aplicación web, disponible en el fichero `index.html`, es el s
     // ROUTER de eventos
   document.addEventListener('click', ev => {
       if      (ev.target.matches('.count'))        count();
-      else if (ev.target.matches('.letter_index'))  letter_index(); 
+      else if (ev.target.matches('.letter_index'))  letter_index();
       else if (ev.target.matches('.word_index'))    word_index();
       else if (ev.target.matches('.sentence_index'))    sentence_index();
       else if (ev.target.matches('.search_letters'))  search_letters();
@@ -230,7 +231,7 @@ Al pulsar el botón "Repeticiones de palabras", deben aparecer listadas todas la
 
 ### Buscar palabras
 
-Al pulsar el botón "Buscar palabras", deben aparecer listadas todas las palabras del texto  que contienen las letras introducidas en el campo de texto, así como el número de veces que aparece cada palabra, tal y como se muestra en la siguiente captura. De nuevo deben ignorarse los signos de puntuación y la diferencia entre mayúsculas y minúsculas pero tenerse en cuenta las diferencias de acentuación. 
+Al pulsar el botón "Buscar palabras", deben aparecer listadas todas las palabras del texto  que contienen las letras introducidas en el campo de texto, así como el número de veces que aparece cada palabra, tal y como se muestra en la siguiente captura. De nuevo deben ignorarse los signos de puntuación y la diferencia entre mayúsculas y minúsculas pero tenerse en cuenta las diferencias de acentuación.
 
 <p align="center">
   <img width="700" height="330" src="https://raw.githubusercontent.com/ging-moocs/MOOC_html_mod6-strings_iteradores_regex_entrega/master/buscar.png">
@@ -239,43 +240,41 @@ Al pulsar el botón "Buscar palabras", deben aparecer listadas todas las palabra
 
 
 
-## Prueba de la práctica 
+## Prueba de la práctica
 
-Para ayudar al desarrollo, se provee una herramienta de autocorrección que prueba las distintas funcionalidades que se piden en el enunciado. Para utilizar esta herramienta debes tener node.js (y npm) ([https://nodejs.org/es/](https://nodejs.org/es/)) y Git instalados. 
+Para ayudar al desarrollo, se provee una herramienta de autocorrección que prueba las distintas funcionalidades que se piden en el enunciado. Para utilizar esta herramienta debes tener node.js (y npm) ([https://nodejs.org/es/](https://nodejs.org/es/)) y Git instalados.
 
-Para instalar y hacer uso de la [herramienta de autocorrección](https://www.npmjs.com/package/moocauto) en el ordenador local, ejecuta los siguientes comandos en el directorio del proyecto:
+Para instalar y hacer uso de la [herramienta de autocorrección](https://www.npmjs.com/package/autocorector) en el ordenador local, ejecuta los siguientes comandos en el directorio del proyecto:
 
 ```
-$ npm install -g moocauto     ## Instala el programa de test
-$ moocauto                    ## Pasa los tests al fichero a entregar
-............................  ## en el directorio de trabajo
+$ sudo npm install -g autocorector     ## Instala el programa de test
+$ autocorector                    ## Pasa los tests al fichero a entregar
+............................      ## en el directorio de trabajo
 ... (resultado de los tests)
 ```
 También se puede instalar como paquete local, en el caso de que no se dispongas de permisos en el ordenador desde el que estás trabajando:
 ```
-$ npm install moocauto         ## Instala el programa de test
-$ npx moocauto                 ## Pasa los tests al fichero a entregar
+$ npm install autocorector     ## Instala el programa de test
+$ npx autocorector             ## Pasa los tests al fichero a entregar
 ............................   ## en el directorio de trabajo
 ... (resultado de los tests)
 ```
 
-Se puede pasar la herramienta de autocorrección tantas veces como se desee.
+Se puede pasar la herramienta de autoorrección tantas veces como se desee sin ninguna repercusión en la calificación.
 
-## Entrega de la práctica
+## Instrucciones para la Entrega y Evaluación.
 
-El alumno debe subir un fichero comprimido ZIP incluyendo todos los ficheros de la práctica.
-Recuerde borrar el directorio node_modules antes de hacer el ZIP si ha instalado el moocauto sin la opción -g, ya que ese directorio no es necesario en la entrega.
+Una vez satisfecho con su calificación, el alumno puede subir su entrega a MiriadaX con el siguiente comando:
+```
+$ autocorector --upload
+```
+o, si se ha instalado como paquete local:
+```
+$ npx autocorector --upload
+```
 
+La herramienta de autocorrección preguntará por el correo del alumno y el token de MiriadaX. En [este enlace](https://docs.google.com/presentation/d/e/2PACX-1vRYA9npW0Xg_c6_SWg2jAU7L2ti83-GY1VYKTzM1U5AgsW-0BC3xbwi__gsrsZ50Md0ja2HyadNzEPn/pub?start=false&loop=false&delayms=5000) se proveen instrucciones para encontrar dicho token.
 
-## Evaluación de la práctica
-
-La evaluación de la práctica se realizará mediante revisión por pares (P2P). Cada alumno tendrá que revisar la práctica de 3 de sus compañeros y otros 3 revisarán la suya. Se puede utilizar la herramienta de autocorrección (moocauto) como ayuda para revisar la práctica de los compañeros.
-
-El objetivo de este curso es sacar el máximo provecho al trabajo que están dedicando, por lo que les recomendamos que utilicen la evaluación para ayudar a sus compañeros enviando comentarios sobre la corrección del código, su claridad, legibilidad, estructuración y documentación. 
-
-Dado que es un curso para principiantes, ante la duda les pedimos que sean benevolentes con sus compañeros, porque muchos participantes están empezando y los primeros pasos siempre son difíciles.
-
-**OJO! Una vez enviada la evaluación, está no se puede cambiar.** Piensen bien su evaluación antes de enviarla.
 
 **RÚBRICA**: Se puntuará el ejercicio a corregir sumando el % indicado a la nota total si la parte indicada es correcta:
  * 40%: El botón "Contar" muestra el número de palabras
