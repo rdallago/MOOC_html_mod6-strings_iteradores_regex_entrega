@@ -28,8 +28,10 @@
       .filter((w) => (w!==""))         // remove empty string elem
 
   // TODO
-  const word_array = (text) => []
+  function word_array(text){ 
+  return text.match(/[a-zñáéíóú]+/ig)}
 
+  
   const sentence_array = (text) =>
       clean_string(text)     
       .replace(/([\.:;?!\n]+)/gm, "$1+")
@@ -53,10 +55,10 @@
     let {text, view} = getIO();
 
     let result =  `Caracteres: ${char_array(text).length}\n`; 
-        result += `Palabras: ${"No implementado"/*TO DO*/}\n`;
+        result += `Palabras: ${word_array(text).length}\n`;
         result += `Frases: ${sentence_array(text).length}\n`;
         result += `Lineas: ${text.split("\n").length}\n`;
-    
+    //"No implementado"/*TO DO*/
     view.innerHTML = result;
   };
 
@@ -77,8 +79,21 @@
   };
 
   // TODO
-  const word_index = () => {
-  };
+  const word_index=()=>{
+    let {text, view} = getIO();
+    var r = {}
+    text = text.split(/\s+/).map(function(a){ !r[a] && (r[a] = 0); r[a]++ })
+    let resultado=r;
+
+  
+    
+    view.innerHTML = JSON.stringify(resultado);
+
+ 
+    
+};
+
+  
 
   const sentence_index = () => {
     let {text, view} = getIO();
